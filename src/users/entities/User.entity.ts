@@ -1,7 +1,8 @@
+import { DateAudit } from 'src/_common/base-entities/DateAudit';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
-export class User {
+export class User extends DateAudit {
   @PrimaryGeneratedColumn()
   id: number;
 
