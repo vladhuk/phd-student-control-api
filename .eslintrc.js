@@ -31,6 +31,7 @@ module.exports = {
     '@typescript-eslint/interface-name-prefix': OFF,
     '@typescript-eslint/explicit-function-return-type': OFF,
     '@typescript-eslint/explicit-module-boundary-types': OFF,
+    '@typescript-eslint/lines-between-class-members': OFF,
 
     'import/prefer-default-export': OFF,
   },
