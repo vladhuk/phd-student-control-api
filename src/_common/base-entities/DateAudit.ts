@@ -1,11 +1,11 @@
 import { Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 export abstract class DateAudit {
-  @CreateDateColumn()
   @Column({ name: 'created_at' })
+  @CreateDateColumn()
   createdAt: Date;
 
-  @UpdateDateColumn()
   @Column({ name: 'updated_at' })
+  @UpdateDateColumn()
   updatedAt: Date;
 }
