@@ -7,14 +7,18 @@ import { User } from './entities/User.entity';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>
+    private readonly usersRepository: Repository<User>
   ) {}
 
   async create(user: User) {
     return this.usersRepository.save(user);
   }
 
-  async findOne(email: string): Promise<User | undefined> {
+  async findOneByEmail(email: string): Promise<User | undefined> {
     return this.usersRepository.findOne({ email });
+  }
+
+  async findById(id: number): Promise<User | undefined> {
+    return this.usersRepository.findOne(id);
   }
 }
