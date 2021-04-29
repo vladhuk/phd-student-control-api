@@ -1,5 +1,5 @@
-import { UserDto } from 'src/users/dto/User.dto';
-import { User } from 'src/users/entities/User.entity';
+import { UserDto } from 'src/users/dto/user.dto';
+import { User } from 'src/users/entities/user.entity';
 
 export class JwtTokenPayload {
   public readonly sub: number;

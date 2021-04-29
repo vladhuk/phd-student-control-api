@@ -4,13 +4,13 @@ import { compare, hash } from 'bcrypt';
 import { classToPlain } from 'class-transformer';
 import { PhdStudentsService } from 'src/phd-students/phd-students.service';
 import { ScientificDirectorsService } from 'src/scientific-directors/scientific-directors.service';
-import { UserDto } from 'src/users/dto/User.dto';
-import { User } from 'src/users/entities/User.entity';
+import { UserDto } from 'src/users/dto/user.dto';
+import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
-import { AuthTokenDto } from './dto/AuthToken.dto';
-import { RegistrationFormDto } from './dto/RegistrationForm.dto';
-import { Role } from './enums/Role';
-import { JwtTokenPayload } from './utils/JwtTokenPayload';
+import { AuthTokenDto } from './dto/auth-token.dto';
+import { RegistrationFormDto } from './dto/registration-form.dto';
+import { Role } from './enums/role';
+import { JwtTokenPayload } from './utils/jwt-token-payload';
 
 @Injectable()
 export class AuthService {

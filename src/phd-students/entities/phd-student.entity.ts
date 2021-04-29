@@ -1,5 +1,5 @@
 import { ScientificDirector } from 'src/scientific-directors/entities/scientific-director.entity';
-import { User } from 'src/users/entities/User.entity';
+import { User } from 'src/users/entities/user.entity';
 import {
   Column,
   Entity,

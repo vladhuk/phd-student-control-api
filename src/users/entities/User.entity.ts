@@ -1,4 +1,4 @@
-import { DateAudit } from 'src/_common/base-entities/DateAudit';
+import { DateAudit } from 'src/_common/base-entities/date-audit.base.entity';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('users')
