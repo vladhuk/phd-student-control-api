@@ -1,19 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { compare, hash } from 'bcrypt';
 import { classToPlain } from 'class-transformer';
+import { PhdStudentsService } from 'src/phd-students/phd-students.service';
+import { ScientificDirectorsService } from 'src/scientific-directors/scientific-directors.service';
 import { UserDto } from 'src/users/dto/User.dto';
 import { User } from 'src/users/entities/User.entity';
 import { UsersService } from 'src/users/users.service';
 import { AuthTokenDto } from './dto/AuthToken.dto';
 import { RegistrationFormDto } from './dto/RegistrationForm.dto';
+import { Role } from './enums/Role';
 import { JwtTokenPayload } from './utils/JwtTokenPayload';
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly jwtService: JwtService,
     private readonly usersService: UsersService,
-    private readonly jwtService: JwtService
+    private readonly phdStudentsService: PhdStudentsService,
+    private readonly scientificDirectorsService: ScientificDirectorsService
   ) {}
 
   async registerUser(
@@ -27,10 +32,25 @@ export class AuthService {
     user.password = await hash(registrationFormDto.password, 10);
 
     const savedUser = await this.usersService.create(user);
+    await this.createActor(registrationFormDto.role, savedUser);
 
     const accessToken = await this.generateAccessToken(savedUser);
 
     return new AuthTokenDto(accessToken);
+  }
+
+  private async createActor(role: Role, userData: User): Promise<void> {
+    switch (role) {
+      case Role.STUDENT:
+        await this.phdStudentsService.createFromUser(userData);
+        break;
+      case Role.SCIENTIFIC_DIRECTOR:
+        await this.scientificDirectorsService.createFromUser(userData);
+        break;
+      default:
+        await this.usersService.deleteById(userData.id);
+        throw new BadRequestException(`Role ${role} does not exist`);
+    }
   }
 
   async validateAndGetUser(
