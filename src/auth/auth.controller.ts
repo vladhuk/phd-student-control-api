@@ -10,7 +10,7 @@ import { LoginFormDto } from './dto/LoginForm.dto';
 import { RegistrationFormDto } from './dto/RegistrationForm.dto';
 
 @Controller('auth')
-@ApiTags('auth')
+@ApiTags('Auth API')
 @SkipJwtAuth()
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
