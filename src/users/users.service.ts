@@ -10,8 +10,12 @@ export class UsersService {
     private readonly usersRepository: Repository<User>
   ) {}
 
-  async create(user: User) {
+  async create(user: User): Promise<User> {
     return this.usersRepository.save(user);
+  }
+
+  async deleteById(id: number): Promise<void> {
+    await this.usersRepository.delete(id);
   }
 
   async findOneByEmail(email: string): Promise<User | undefined> {
