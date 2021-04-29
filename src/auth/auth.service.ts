@@ -41,7 +41,7 @@ export class AuthService {
 
   private async createActor(role: Role, userData: User): Promise<void> {
     switch (role) {
-      case Role.STUDENT:
+      case Role.PHD_STUDENT:
         await this.phdStudentsService.createFromUser(userData);
         break;
       case Role.SCIENTIFIC_DIRECTOR:
