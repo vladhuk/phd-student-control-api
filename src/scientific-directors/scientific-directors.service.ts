@@ -11,7 +11,7 @@ export class ScientificDirectorsService {
     private readonly scientificDirectorsRepository: Repository<ScientificDirector>
   ) {}
 
-  createFromUser(user: User) {
+  async createFromUser(user: User): Promise<ScientificDirector> {
     const scientificDirector = new ScientificDirector();
 
     scientificDirector.userData = user;

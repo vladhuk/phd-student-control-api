@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/users/entities/User.entity';
+import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
-import { CreatePhdStudentDto } from './dto/create-phd-student.dto';
-import { UpdatePhdStudentDto } from './dto/update-phd-student.dto';
 import { PhdStudent } from './entities/phd-student.entity';
 
 @Injectable()
@@ -13,7 +11,7 @@ export class PhdStudentsService {
     private readonly phdStudentsRepository: Repository<PhdStudent>
   ) {}
 
-  createFromUser(user: User) {
+  async createFromUser(user: User): Promise<PhdStudent> {
     const phdStudent = new PhdStudent();
 
     phdStudent.userData = user;
