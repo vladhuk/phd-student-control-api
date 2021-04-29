@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -25,5 +25,17 @@ export class PhdStudentsService {
       { userData: { id: userId } },
       { relations: ['userData'] }
     );
+  }
+
+  async findOneByUserIdOrThrow(userId: number): Promise<PhdStudent> {
+    const student = await this.findOneByUserId(userId);
+
+    if (!student) {
+      throw new NotFoundException(
+        `PhD student with userId=${userId} not found`
+      );
+    }
+
+    return student;
   }
 }
