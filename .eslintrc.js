@@ -27,6 +27,7 @@ module.exports = {
     'prettier/prettier': WARN,
 
     'class-methods-use-this': OFF,
+    'prefer-destructuring': OFF,
 
     '@typescript-eslint/interface-name-prefix': OFF,
     '@typescript-eslint/explicit-function-return-type': OFF,
