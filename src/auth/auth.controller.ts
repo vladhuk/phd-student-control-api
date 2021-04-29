@@ -1,5 +1,5 @@
 import { Body, Controller, Post, UseGuards } from '@nestjs/common';
-import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { UserDto } from 'src/users/dto/user.dto';
 import { SkipJwtAuth } from 'src/_common/decorators/skip-jwt-auth.decorator';
 import { User } from 'src/_common/decorators/user.decorator';
@@ -16,6 +16,7 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
+  @ApiOperation({ description: 'All registered users become PhD students' })
   register(@Body() registrationFormDto: RegistrationFormDto) {
     return this.authService.registerUser(registrationFormDto);
   }

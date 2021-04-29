@@ -1,5 +1,4 @@
-import { IsDefined, IsEmail, IsEnum, IsNotEmpty } from 'class-validator';
-import { Role } from '../../_common/enums/role';
+import { IsEmail, IsNotEmpty } from 'class-validator';
 
 export class RegistrationFormDto {
   @IsNotEmpty()
@@ -14,8 +13,4 @@ export class RegistrationFormDto {
 
   @IsNotEmpty()
   readonly password: string;
-
-  @IsEnum(Role)
-  @IsDefined()
-  readonly role: Role;
 }
