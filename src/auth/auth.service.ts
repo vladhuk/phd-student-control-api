@@ -9,7 +9,7 @@ import { User } from 'src/users/entities/user.entity';
 import { UsersService } from 'src/users/users.service';
 import { AuthTokenDto } from './dto/auth-token.dto';
 import { RegistrationFormDto } from './dto/registration-form.dto';
-import { Role } from './enums/role';
+import { Role } from '../_common/enums/role';
 import { JwtTokenPayload } from './utils/jwt-token-payload';
 
 @Injectable()
