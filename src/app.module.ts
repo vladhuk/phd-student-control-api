@@ -5,6 +5,8 @@ import { APP_GUARD } from '@nestjs/core';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtAuthGuard } from './_common/guards/JwtAuth.guard';
+import { ScientificDirectorsModule } from './scientific-directors/scientific-directors.module';
+import { PhdStudentsModule } from './phd-students/phd-students.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { JwtAuthGuard } from './_common/guards/JwtAuth.guard';
     }),
     UsersModule,
     AuthModule,
+    ScientificDirectorsModule,
+    PhdStudentsModule,
   ],
   providers: [
     {
