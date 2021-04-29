@@ -19,4 +19,11 @@ export class PhdStudentsService {
 
     return this.phdStudentsRepository.save(phdStudent);
   }
+
+  async findOneByUserId(userId: number): Promise<PhdStudent | undefined> {
+    return this.phdStudentsRepository.findOne(
+      { userData: { id: userId } },
+      { relations: ['userData'] }
+    );
+  }
 }

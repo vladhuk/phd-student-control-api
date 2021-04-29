@@ -4,9 +4,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { APP_GUARD } from '@nestjs/core';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
-import { JwtAuthGuard } from './_common/guards/jwt-auth.guard';
 import { ScientificDirectorsModule } from './scientific-directors/scientific-directors.module';
 import { PhdStudentsModule } from './phd-students/phd-students.module';
+import { GlobalGuard as AppGuard } from './_common/guards/app.guard';
+import { JwtAuthGuard } from './_common/guards/jwt-auth.guard';
+import { RolesGuard } from './_common/guards/roles.guard';
 
 @Module({
   imports: [
@@ -30,9 +32,11 @@ import { PhdStudentsModule } from './phd-students/phd-students.module';
     PhdStudentsModule,
   ],
   providers: [
+    JwtAuthGuard,
+    RolesGuard,
     {
       provide: APP_GUARD,
-      useClass: JwtAuthGuard,
+      useClass: AppGuard,
     },
   ],
 })

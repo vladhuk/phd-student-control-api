@@ -18,4 +18,13 @@ export class ScientificDirectorsService {
 
     return this.scientificDirectorsRepository.save(scientificDirector);
   }
+
+  async findOneByUserId(
+    userId: number
+  ): Promise<ScientificDirector | undefined> {
+    return this.scientificDirectorsRepository.findOne(
+      { userData: { id: userId } },
+      { relations: ['userData'] }
+    );
+  }
 }
