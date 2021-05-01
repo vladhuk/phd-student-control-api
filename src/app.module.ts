@@ -9,6 +9,7 @@ import { PhdStudentsModule } from './phd-students/phd-students.module';
 import { GlobalGuard as AppGuard } from './_common/guards/app.guard';
 import { JwtAuthGuard } from './_common/guards/jwt-auth.guard';
 import { RolesGuard } from './_common/guards/roles.guard';
+import { IndividualPlansModule } from './individual-plans/individual-plans.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { RolesGuard } from './_common/guards/roles.guard';
     AuthModule,
     ScientificDirectorsModule,
     PhdStudentsModule,
+    IndividualPlansModule,
   ],
   providers: [
     JwtAuthGuard,
