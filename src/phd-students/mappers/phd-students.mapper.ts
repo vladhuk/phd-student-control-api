@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { ScientificDirectorDto } from 'src/scientific-directors/dto/scientific-director.dto';
 import { UserDto } from 'src/users/dto/user.dto';
 import { Mapper } from 'src/_common/interfaces/mapper.interface';
-import { PhdStudentDto } from './dto/phd-student.dto';
-import { PhdStudent } from './entities/phd-student.entity';
-import { PhdStudentsService } from './phd-students.service';
+import { PhdStudentDto } from '../dto/phd-student.dto';
+import { PhdStudent } from '../entities/phd-student.entity';
+import { PhdStudentsService } from '../phd-students.service';
 
 @Injectable()
 export class PhdStudentsMapper implements Mapper<PhdStudent, PhdStudentDto> {
