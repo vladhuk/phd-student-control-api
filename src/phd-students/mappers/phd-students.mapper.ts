@@ -4,12 +4,9 @@ import { UserDto } from 'src/users/dto/user.dto';
 import { Mapper } from 'src/_common/interfaces/mapper.interface';
 import { PhdStudentDto } from '../dto/phd-student.dto';
 import { PhdStudent } from '../entities/phd-student.entity';
-import { PhdStudentsService } from '../phd-students.service';
 
 @Injectable()
 export class PhdStudentsMapper implements Mapper<PhdStudent, PhdStudentDto> {
-  constructor(private phdStudentsService: PhdStudentsService) {}
-
   async entityToDto(student: PhdStudent): Promise<PhdStudentDto> {
     const studentDto = new PhdStudentDto();
 
