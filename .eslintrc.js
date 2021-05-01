@@ -35,5 +35,6 @@ module.exports = {
     '@typescript-eslint/lines-between-class-members': OFF,
 
     'import/prefer-default-export': OFF,
+    'import/no-cycle': OFF,
   },
 };
