@@ -4,7 +4,7 @@ export class AuthTokenDto {
   @Allow()
   readonly authToken: string;
 
-  constructor(authToken) {
+  constructor(authToken: string) {
     this.authToken = authToken;
   }
 }
