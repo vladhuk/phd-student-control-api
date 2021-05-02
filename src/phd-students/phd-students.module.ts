@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScientificDirectorsModule } from 'src/scientific-directors/scientific-directors.module';
 import { IndividualPlansModule } from 'src/individual-plans/individual-plans.module';
@@ -10,11 +10,11 @@ import { PhdStudentsMapper } from './mappers/phd-students.mapper';
 @Module({
   imports: [
     TypeOrmModule.forFeature([PhdStudent]),
-    ScientificDirectorsModule,
+    forwardRef(() => ScientificDirectorsModule),
     IndividualPlansModule,
   ],
   controllers: [PhdStudentsController],
   providers: [PhdStudentsService, PhdStudentsMapper],
-  exports: [PhdStudentsService],
+  exports: [PhdStudentsService, PhdStudentsMapper],
 })
 export class PhdStudentsModule {}
