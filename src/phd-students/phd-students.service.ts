@@ -35,7 +35,7 @@ export class PhdStudentsService {
     return student;
   }
 
-  async findOneByUserIdAndScientificDirectorId(
+  async findOneByStudentIdAndScientificDirectorId(
     studentId: number,
     directorId: number
   ): Promise<PhdStudent> {
