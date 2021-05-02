@@ -22,7 +22,7 @@ export class IndividualPlansService {
     const plan = await this.individualPlanRepository.findOne(planId);
     const tasks = await plan.tasks;
 
-    return tasks.map((task) => task.id).some((id) => id === taskId);
+    return tasks.some((task) => task.id === taskId);
   }
 
   async addAttachmentToTask(
@@ -78,5 +78,13 @@ export class IndividualPlansService {
     const attachment = await task.attachment;
 
     return this.getAttachmentPathByAttachmentId(attachment.id);
+  }
+
+  async approveTask(taskId: number): Promise<void> {
+    const task = await this.individualPlanTaskRepository.findOne(taskId);
+
+    task.isCompleted = true;
+
+    await this.individualPlanRepository.save(task);
   }
 }

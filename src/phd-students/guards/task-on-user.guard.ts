@@ -1,11 +1,15 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
+import { IndividualPlansService } from 'src/individual-plans/individual-plans.service';
 import { TaskNotFoundOnUserException } from 'src/phd-students/exceptions/task-not-found-on-user.exceptions';
 import { PhdStudentsService } from 'src/phd-students/phd-students.service';
 import { UserDto } from 'src/users/dto/user.dto';
 
 @Injectable()
 export class CheckTaskOnUserGuard implements CanActivate {
-  constructor(private readonly phdStudentsService: PhdStudentsService) {}
+  constructor(
+    private readonly phdStudentsService: PhdStudentsService,
+    private readonly individualPlansService: IndividualPlansService
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const req = context.switchToHttp().getRequest();
@@ -14,11 +18,9 @@ export class CheckTaskOnUserGuard implements CanActivate {
     const taskId = +req.taskId;
 
     const phdStudent = await this.phdStudentsService.findOneByUserId(user.id);
-    const individualPlan = await phdStudent.individualPlan;
-    const tasks = await individualPlan.tasks;
-    const exists = tasks.some((task) => task.id === taskId);
+    const plan = await phdStudent.individualPlan;
 
-    if (exists) {
+    if (await this.individualPlansService.taskExistsOnPlan(plan.id, taskId)) {
       return true;
     }
 

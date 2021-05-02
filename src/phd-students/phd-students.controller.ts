@@ -11,7 +11,7 @@ import {
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiBody, ApiConsumes, ApiProduces, ApiTags } from '@nestjs/swagger';
 import { IndividualPlanDto } from 'src/individual-plans/dto/individual-plan.dto';
-import { CheckTaskOnUserGuard } from 'src/phd-students/guards/check-task-on-user.guard';
+import { CheckTaskOnUserGuard } from 'src/phd-students/guards/task-on-user.guard';
 import { IndividualPlansService } from 'src/individual-plans/individual-plans.service';
 import { IndividualPlansMapper } from 'src/individual-plans/mappers/individual-plans.mapper';
 import { UserDto } from 'src/users/dto/user.dto';
@@ -36,9 +36,7 @@ export class PhdStudentsController {
 
   @Get()
   async getProfile(@User() user: UserDto): Promise<PhdStudentDto> {
-    const student = await this.phdStudentsService.findOneByUserIdOrThrow(
-      user.id
-    );
+    const student = await this.phdStudentsService.findOneByUserId(user.id);
     return this.phdStudentsMapper.entityToDto(student);
   }
 
