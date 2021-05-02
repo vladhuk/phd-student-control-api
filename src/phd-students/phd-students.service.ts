@@ -20,19 +20,36 @@ export class PhdStudentsService {
     return this.phdStudentsRepository.save(phdStudent);
   }
 
-  async findOneByUserId(userId: number): Promise<PhdStudent | undefined> {
-    return this.phdStudentsRepository.findOne(
+  async findOneByUserId(userId: number): Promise<PhdStudent> {
+    const student = await this.phdStudentsRepository.findOne(
       { userData: { id: userId } },
       { relations: ['userData'] }
     );
-  }
-
-  async findOneByUserIdOrThrow(userId: number): Promise<PhdStudent> {
-    const student = await this.findOneByUserId(userId);
 
     if (!student) {
       throw new NotFoundException(
         `PhD student with userId=${userId} not found`
+      );
+    }
+
+    return student;
+  }
+
+  async findOneByUserIdAndScientificDirectorId(
+    studentId: number,
+    directorId: number
+  ): Promise<PhdStudent> {
+    const student = await this.phdStudentsRepository.findOne(
+      {
+        userData: { id: studentId },
+        scientificDirector: { id: directorId },
+      },
+      { relations: ['userData', 'scientificDirector'] }
+    );
+
+    if (!student) {
+      throw new NotFoundException(
+        `PhD student with userId=${studentId} and directorId=${directorId} not found`
       );
     }
 

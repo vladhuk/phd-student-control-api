@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/users/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -19,12 +19,18 @@ export class ScientificDirectorsService {
     return this.scientificDirectorsRepository.save(scientificDirector);
   }
 
-  async findOneByUserId(
-    userId: number
-  ): Promise<ScientificDirector | undefined> {
-    return this.scientificDirectorsRepository.findOne(
+  async findOneByUserId(userId: number): Promise<ScientificDirector> {
+    const director = this.scientificDirectorsRepository.findOne(
       { userData: { id: userId } },
       { relations: ['userData'] }
     );
+
+    if (!director) {
+      throw new NotFoundException(
+        `Scientific director with userId=${userId} not found`
+      );
+    }
+
+    return director;
   }
 }

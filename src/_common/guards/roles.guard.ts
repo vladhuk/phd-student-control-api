@@ -28,15 +28,19 @@ export class RolesGuard implements CanActivate {
     const user: UserDto = request.user;
     const role = roles[0];
 
-    switch (role) {
-      case Role.PHD_STUDENT:
-        return !!(await this.phdStudentsService.findOneByUserId(user.id));
-      case Role.SCIENTIFIC_DIRECTOR:
-        return !!(await this.scientificDirectorService.findOneByUserId(
-          user.id
-        ));
-      default:
-        return false;
+    try {
+      switch (role) {
+        case Role.PHD_STUDENT:
+          return !!(await this.phdStudentsService.findOneByUserId(user.id));
+        case Role.SCIENTIFIC_DIRECTOR:
+          return !!(await this.scientificDirectorService.findOneByUserId(
+            user.id
+          ));
+        default:
+          return false;
+      }
+    } catch (err) {
+      return false;
     }
   }
 }
