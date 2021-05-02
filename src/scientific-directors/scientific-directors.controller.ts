@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { IndividualPlanDto } from 'src/individual-plans/dto/individual-plan.dto';
 import { IndividualPlansService } from 'src/individual-plans/individual-plans.service';
 import { IndividualPlansMapper } from 'src/individual-plans/mappers/individual-plans.mapper';
@@ -15,6 +15,7 @@ import { ScientificDirectorsService } from './scientific-directors.service';
 
 @Controller('scientific-directors/me')
 @ApiTags('Scientific directors API')
+@ApiBearerAuth()
 @ForRole(Role.SCIENTIFIC_DIRECTOR)
 export class ScientificDirectorsController {
   constructor(

@@ -9,7 +9,13 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiBody, ApiConsumes, ApiProduces, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiProduces,
+  ApiTags,
+} from '@nestjs/swagger';
 import { IndividualPlanDto } from 'src/individual-plans/dto/individual-plan.dto';
 import { CheckTaskOnUserGuard } from 'src/phd-students/guards/task-on-user.guard';
 import { IndividualPlansService } from 'src/individual-plans/individual-plans.service';
@@ -25,7 +31,8 @@ import { PhdStudentsService } from './phd-students.service';
 
 @Controller('phd-students/me')
 @ApiTags('PhD students API')
-@ForRole(Role.SCIENTIFIC_DIRECTOR)
+@ApiBearerAuth()
+@ForRole(Role.PHD_STUDENT)
 export class PhdStudentsController {
   constructor(
     private readonly phdStudentsService: PhdStudentsService,
