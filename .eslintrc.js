@@ -12,7 +12,6 @@ module.exports = {
     'airbnb-typescript/base',
     'plugin:@typescript-eslint/eslint-recommended', // Disable base rules
     'plugin:@typescript-eslint/recommended', // Enable ts rules
-    'plugin:prettier/recommended',
     'prettier',
     'plugin:prettier/recommended',
   ],
