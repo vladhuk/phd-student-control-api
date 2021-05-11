@@ -18,6 +18,9 @@ export class IndividualPlanTask extends DateAudit {
   @Column()
   isCompleted: boolean;
 
+  @Column()
+  name: string;
+
   @ManyToOne(() => IndividualPlan)
   @JoinColumn({ name: 'individual_plan_id' })
   individualPlan: IndividualPlan;

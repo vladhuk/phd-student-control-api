@@ -21,6 +21,7 @@ export class IndividualPlansMapper
         const individualPlanTaskDto = new IndividualPlanTaskDto();
 
         individualPlanTaskDto.id = task.id;
+        individualPlanTaskDto.name = task.name;
         individualPlanTaskDto.attachmentName = (await task.attachment).fileName;
         individualPlanTaskDto.isCompleted = task.isCompleted;
 

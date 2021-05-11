@@ -5,6 +5,9 @@ export class IndividualPlanTaskDto {
   id: number;
 
   @Allow()
+  name: string;
+
+  @Allow()
   isCompleted: boolean;
 
   @Allow()
