@@ -22,8 +22,12 @@ export class IndividualPlansMapper
 
         individualPlanTaskDto.id = task.id;
         individualPlanTaskDto.name = task.name;
-        individualPlanTaskDto.attachmentName = (await task.attachment).fileName;
         individualPlanTaskDto.isCompleted = task.isCompleted;
+
+        const attachment = await task.attachment;
+        individualPlanTaskDto.attachmentName = attachment
+          ? attachment.fileName
+          : null;
 
         return individualPlanTaskDto;
       })
