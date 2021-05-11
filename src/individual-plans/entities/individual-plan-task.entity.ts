@@ -15,7 +15,7 @@ export class IndividualPlanTask extends DateAudit {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ name: 'is_completed' })
   isCompleted: boolean;
 
   @Column()
