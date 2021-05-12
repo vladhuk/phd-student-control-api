@@ -18,6 +18,13 @@ export class IndividualPlansService {
     private readonly attachmentRepository: Repository<Attachment>
   ) {}
 
+  async findByPhdStudentId(studentId: number): Promise<IndividualPlan> {
+    return this.individualPlanRepository.findOne(
+      { phdStudent: { id: studentId } },
+      { relations: ['phdStudent', 'tasks'] }
+    );
+  }
+
   async taskExistsOnPlan(planId: number, taskId: number): Promise<boolean> {
     const plan = await this.individualPlanRepository.findOne(planId, {
       relations: ['tasks'],
