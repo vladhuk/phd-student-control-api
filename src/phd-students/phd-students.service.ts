@@ -51,7 +51,14 @@ export class PhdStudentsService {
         userData: { id: studentId },
         scientificDirector: { id: directorId },
       },
-      { relations: ['userData', 'scientificDirector'] }
+      {
+        relations: [
+          'userData',
+          'scientificDirector',
+          'individualPlan',
+          'individualPlan.tasks',
+        ],
+      }
     );
 
     if (!student) {

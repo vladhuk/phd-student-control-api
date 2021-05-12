@@ -1,5 +1,5 @@
 import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
 import { IndividualPlanDto } from 'src/individual-plans/dto/individual-plan.dto';
 import { IndividualPlansService } from 'src/individual-plans/individual-plans.service';
 import { IndividualPlansMapper } from 'src/individual-plans/mappers/individual-plans.mapper';
@@ -51,6 +51,7 @@ export class ScientificDirectorsController {
 
   @Post('phd-students/:studentId/plan/tasks/:taskId/approve')
   @UseGuards(DirectorHasStudentWithTask)
+  @ApiParam({ name: 'studentId', type: Number })
   async approveIndividualPlanTask(
     @Param('taskId') taskId: number
   ): Promise<void> {
