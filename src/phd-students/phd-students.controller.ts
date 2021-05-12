@@ -50,9 +50,8 @@ export class PhdStudentsController {
   @Get('plan')
   async getIndividualPlan(@User() user: UserDto): Promise<IndividualPlanDto> {
     const phdStudent = await this.phdStudentsService.findOneByUserId(user.id);
-    const individualPlan = await phdStudent.individualPlan;
 
-    return this.individualPlansMapper.entityToDto(individualPlan);
+    return this.individualPlansMapper.entityToDto(phdStudent.individualPlan);
   }
 
   @Get('plan/:taskId/attachment')

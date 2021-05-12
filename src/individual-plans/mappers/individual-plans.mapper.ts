@@ -14,17 +14,15 @@ export class IndividualPlansMapper
 
     individualPlanDto.id = individualPlan.id;
 
-    const individualPlanTasks = await individualPlan.tasks;
-
     individualPlanDto.tasks = await Promise.all(
-      individualPlanTasks.map(async (task) => {
+      individualPlan.tasks.map(async (task) => {
         const individualPlanTaskDto = new IndividualPlanTaskDto();
 
         individualPlanTaskDto.id = task.id;
         individualPlanTaskDto.name = task.name;
         individualPlanTaskDto.isCompleted = task.isCompleted;
 
-        const attachment = await task.attachment;
+        const attachment = task.attachment;
         individualPlanTaskDto.attachmentName = attachment
           ? attachment.fileName
           : null;

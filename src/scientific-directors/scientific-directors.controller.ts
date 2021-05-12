@@ -31,9 +31,10 @@ export class ScientificDirectorsController {
     const director = await this.scientificDirectorsService.findOneByUserId(
       user.id
     );
-    const students = await director.phdStudents;
 
-    return Promise.all(students.map(this.phdStudentsMapper.entityToDto));
+    return Promise.all(
+      director.phdStudents.map(this.phdStudentsMapper.entityToDto)
+    );
   }
 
   @Get('phd-students/:studentId/plan')
@@ -45,8 +46,7 @@ export class ScientificDirectorsController {
       studentId,
       user.id
     );
-    const plan = await student.individualPlan;
-    return this.individualPlansMapper.entityToDto(plan);
+    return this.individualPlansMapper.entityToDto(student.individualPlan);
   }
 
   @Post('phd-students/:studentId/plan/tasks/:taskId/approve')

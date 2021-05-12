@@ -20,9 +20,9 @@ export class ScientificDirectorsService {
   }
 
   async findOneByUserId(userId: number): Promise<ScientificDirector> {
-    const director = this.scientificDirectorsRepository.findOne(
+    const director = await this.scientificDirectorsRepository.findOne(
       { userData: { id: userId } },
-      { relations: ['userData'] }
+      { relations: ['userData', 'phdStudents'] }
     );
 
     if (!director) {

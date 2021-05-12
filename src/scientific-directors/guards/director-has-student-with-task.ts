@@ -25,7 +25,7 @@ export class DirectorHasStudentWithTask implements CanActivate {
       +studentId,
       director.id
     );
-    const plan = await student.individualPlan;
+    const plan = student.individualPlan;
 
     if (this.individualPlansService.taskExistsOnPlan(plan.id, taskId)) {
       return true;

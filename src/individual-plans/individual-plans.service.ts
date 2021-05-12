@@ -19,10 +19,11 @@ export class IndividualPlansService {
   ) {}
 
   async taskExistsOnPlan(planId: number, taskId: number): Promise<boolean> {
-    const plan = await this.individualPlanRepository.findOne(planId);
-    const tasks = await plan.tasks;
+    const plan = await this.individualPlanRepository.findOne(planId, {
+      relations: ['tasks'],
+    });
 
-    return tasks.some((task) => task.id === taskId);
+    return plan.tasks.some((task) => task.id === taskId);
   }
 
   async addAttachmentToTask(
@@ -30,7 +31,9 @@ export class IndividualPlansService {
     fileName: string,
     fileBuffer: Buffer
   ): Promise<void> {
-    const task = await this.individualPlanTaskRepository.findOne(taskId);
+    const task = await this.individualPlanTaskRepository.findOne(taskId, {
+      relations: ['attachment'],
+    });
 
     await this.deleteAttachmentIfExists(task);
 
@@ -52,7 +55,7 @@ export class IndividualPlansService {
   private async deleteAttachmentIfExists(
     task: IndividualPlanTask
   ): Promise<void> {
-    const attachment = await task.attachment;
+    const attachment = task.attachment;
 
     if (!attachment) {
       return;
@@ -74,10 +77,11 @@ export class IndividualPlansService {
   }
 
   async getAttachmentPathByTaskId(taskId: number): Promise<string> {
-    const task = await this.individualPlanTaskRepository.findOne(taskId);
-    const attachment = await task.attachment;
+    const task = await this.individualPlanTaskRepository.findOne(taskId, {
+      relations: ['attachment'],
+    });
 
-    return this.getAttachmentPathByAttachmentId(attachment.id);
+    return this.getAttachmentPathByAttachmentId(task.attachment.id);
   }
 
   async approveTask(taskId: number): Promise<void> {

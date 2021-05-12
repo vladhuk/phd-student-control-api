@@ -18,7 +18,7 @@ export class CheckTaskOnUserGuard implements CanActivate {
     const taskId = +req.taskId;
 
     const phdStudent = await this.phdStudentsService.findOneByUserId(user.id);
-    const plan = await phdStudent.individualPlan;
+    const plan = phdStudent.individualPlan;
 
     if (await this.individualPlansService.taskExistsOnPlan(plan.id, taskId)) {
       return true;

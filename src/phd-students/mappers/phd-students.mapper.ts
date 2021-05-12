@@ -12,13 +12,13 @@ export class PhdStudentsMapper implements Mapper<PhdStudent, PhdStudentDto> {
 
     studentDto.id = student.id;
     studentDto.year = student.year;
-    studentDto.userData = new UserDto(await student.userData);
+    studentDto.userData = new UserDto(student.userData);
 
-    const director = await student.scientificDirector;
+    const director = student.scientificDirector;
     const directorDto = new ScientificDirectorDto();
 
     directorDto.id = director.id;
-    directorDto.userData = new UserDto(await director.userData);
+    directorDto.userData = new UserDto(director.userData);
 
     studentDto.scientificDirector = directorDto;
 

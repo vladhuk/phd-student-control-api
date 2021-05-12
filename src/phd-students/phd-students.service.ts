@@ -23,7 +23,7 @@ export class PhdStudentsService {
   async findOneByUserId(userId: number): Promise<PhdStudent> {
     const student = await this.phdStudentsRepository.findOne(
       { userData: { id: userId } },
-      { relations: ['userData'] }
+      { relations: ['userData', 'scientificDirector', 'individualPlan'] }
     );
 
     if (!student) {
