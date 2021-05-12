@@ -57,7 +57,7 @@ export class PhdStudentsController {
     return this.individualPlansMapper.entityToDto(individualPlan);
   }
 
-  @Get('plan/:taskId/attachment')
+  @Get('plan/tasks/:taskId/attachment')
   @UseGuards(CheckTaskOnUserGuard)
   @ApiProduces('application/octet-stream')
   async getIndividualPlanAttachment(
@@ -70,7 +70,7 @@ export class PhdStudentsController {
     return res.download(attachmentPath);
   }
 
-  @Post('plan/:taskId/attachment')
+  @Post('plan/tasks/:taskId/attachment')
   @UseGuards(CheckTaskOnUserGuard)
   @UseInterceptors(FileInterceptor('file'))
   @ApiConsumes('multipart/form-data')
