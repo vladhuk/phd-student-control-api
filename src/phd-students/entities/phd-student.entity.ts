@@ -26,6 +26,6 @@ export class PhdStudent {
   @JoinColumn({ name: 'scientific_director_id' })
   scientificDirector: ScientificDirector;
 
-  @OneToOne(() => IndividualPlan)
+  @OneToOne(() => IndividualPlan, (plan) => plan.phdStudent)
   individualPlan: IndividualPlan;
 }
