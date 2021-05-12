@@ -15,7 +15,8 @@
         "${workspaceFolder}/dist/**/*.js"
       ],
       "runtimeExecutable": "yarn",
-      "runtimeArgs": ["start:debug"]
+      "runtimeArgs": ["start:debug"],
+      "console": "integratedTerminal"
     }
   ]
 }
