@@ -15,7 +15,7 @@ export class CheckTaskOnUserGuard implements CanActivate {
     const req = context.switchToHttp().getRequest();
     const user: UserDto = req.user;
     // It is not converted to number, because ValidationPipe executed after guard
-    const taskId = +req.taskId;
+    const taskId = +req.params.taskId;
 
     const phdStudent = await this.phdStudentsService.findOneByUserId(user.id);
     const plan = phdStudent.individualPlan;

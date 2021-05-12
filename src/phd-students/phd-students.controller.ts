@@ -84,7 +84,7 @@ export class PhdStudentsController {
   ): Promise<void> {
     return this.individualPlansService.addAttachmentToTask(
       taskId,
-      file.filename,
+      file.originalname,
       file.buffer
     );
   }

@@ -14,14 +14,14 @@ export class IndividualPlansService {
     private readonly individualPlanRepository: Repository<IndividualPlan>,
     @InjectRepository(IndividualPlanTask)
     private readonly individualPlanTaskRepository: Repository<IndividualPlanTask>,
-    @InjectRepository(IndividualPlan)
+    @InjectRepository(Attachment)
     private readonly attachmentRepository: Repository<Attachment>
   ) {}
 
   async findByPhdStudentId(studentId: number): Promise<IndividualPlan> {
     return this.individualPlanRepository.findOne(
       { phdStudent: { id: studentId } },
-      { relations: ['phdStudent', 'tasks'] }
+      { relations: ['phdStudent', 'tasks', 'tasks.attachment'] }
     );
   }
 
@@ -68,8 +68,16 @@ export class IndividualPlansService {
       return;
     }
 
-    await fs.unlink(this.getAttachmentPathByAttachmentId(attachment.id));
-    await this.attachmentRepository.remove(attachment);
+    const attachmentPath = this.getAttachmentPathByAttachmentId(attachment.id);
+
+    if (await this.fileExists(attachmentPath)) {
+      await fs.unlink(this.getAttachmentPathByAttachmentId(attachment.id));
+    }
+
+    await this.individualPlanTaskRepository.update(task.id, {
+      attachment: null,
+    });
+    await this.attachmentRepository.delete(attachment.id);
   }
 
   private getAttachmentPathByAttachmentId(attachmentId: number): string {
