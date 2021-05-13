@@ -104,6 +104,6 @@ export class IndividualPlansService {
 
     task.isCompleted = true;
 
-    await this.individualPlanRepository.save(task);
+    await this.individualPlanTaskRepository.save(task);
   }
 }
