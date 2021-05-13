@@ -57,6 +57,7 @@ export class PhdStudentsService {
           'scientificDirector',
           'individualPlan',
           'individualPlan.tasks',
+          'individualPlan.tasks.attachment',
         ],
       }
     );
