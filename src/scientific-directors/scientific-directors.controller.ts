@@ -1,5 +1,12 @@
-import { Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
-import { ApiBearerAuth, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  Controller,
+  Get,
+  Param,
+  Post,
+  UseGuards,
+  Response,
+} from '@nestjs/common';
+import { ApiBearerAuth, ApiParam, ApiProduces, ApiTags } from '@nestjs/swagger';
 import { IndividualPlanDto } from 'src/individual-plans/dto/individual-plan.dto';
 import { IndividualPlansService } from 'src/individual-plans/individual-plans.service';
 import { IndividualPlansMapper } from 'src/individual-plans/mappers/individual-plans.mapper';
@@ -47,6 +54,19 @@ export class ScientificDirectorsController {
       user.id
     );
     return this.individualPlansMapper.entityToDto(student.individualPlan);
+  }
+
+  @Get('phd-students/:studentId/plan/tasks/:taskId/attachment')
+  @UseGuards(DirectorHasStudentWithTask)
+  @ApiProduces('application/octet-stream')
+  async getIndividualPlanAttachment(
+    @Param('taskId') taskId: number,
+    @Response() res
+  ) {
+    const attachmentPath = await this.individualPlansService.getAttachmentPathByTaskId(
+      taskId
+    );
+    return res.download(attachmentPath);
   }
 
   @Post('phd-students/:studentId/plan/tasks/:taskId/approve')
